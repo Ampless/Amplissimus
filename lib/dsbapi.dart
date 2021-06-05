@@ -109,7 +109,14 @@ Future<List<Plan>> _getPlans(bool useJsonCache, {BuildContext? context}) async {
     if (context != null) snackBarErrorHandle(context, e);
   }
   try {
-    final plans = await getAllSubs(prefs.username, prefs.password, http: http);
+    final plans = await getAllSubs(
+      prefs.username,
+      prefs.password,
+      http: http,
+      endpoint: Platform.operatingSystem.toLowerCase().contains('web')
+          ? 'https://proxy.amplissimus.chrissx.de/'
+          : 'https://mobileapi.dsbcontrol.de',
+    );
     prefs.dsbJsonCache = Plan.plansToJsonString(plans);
     return plans;
   } catch (e) {

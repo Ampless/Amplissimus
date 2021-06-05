@@ -1,5 +1,6 @@
 import 'package:dsbuntis/dsbuntis.dart';
 import 'package:flutter/material.dart';
+import 'package:universal_io/io.dart';
 
 import '../constants.dart';
 import '../dsbapi.dart' as dsb;
@@ -87,6 +88,9 @@ class _FirstLoginState extends State<FirstLogin> {
         prefs.username,
         prefs.password,
         http: http,
+        endpoint: Platform.operatingSystem.toLowerCase().contains('web')
+            ? 'https://proxy.amplissimus.chrissx.de/'
+            : 'https://mobileapi.dsbcontrol.de',
       );
 
       await dsb.updateWidget();
