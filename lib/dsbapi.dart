@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:io';
+import 'package:universal_io/io.dart';
 
 import 'package:url_launcher/link.dart';
 import 'package:dsbuntis/dsbuntis.dart';

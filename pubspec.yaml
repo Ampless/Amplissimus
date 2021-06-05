@@ -24,6 +24,7 @@ dependencies:
   update: ^0.3.1
   html_search: ^0.2.0
   flutter_svg: ^0.22.0
+  universal_io: ^2.0.4
   # touch_bar: ^0.1.0-alpha.1
 
 dev_dependencies:

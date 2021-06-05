@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:universal_io/io.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -41,7 +41,7 @@ class AmpHomePageState extends State<AmpHomePage>
   @override
   void initState() {
     log.info('AmpHomePageState', 'initState()');
-    
+
     if (SchedulerBinding.instance != null) checkBrightness();
     SchedulerBinding.instance?.window.onPlatformBrightnessChanged =
         checkBrightness;

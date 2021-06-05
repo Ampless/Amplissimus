@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
+import 'package:universal_io/io.dart';
 
 import 'package:flutter/material.dart';
 import 'package:crypto/crypto.dart';
@@ -9,8 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'logging.dart' as log;
 import 'uilib.dart';
-
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 class Prefs {
   final SharedPreferences? _prefs;
@@ -182,8 +180,7 @@ class Prefs {
 
   set wpeDomain(String s) => _setString('wpedomain', s);
 
-  String get savedLangCode =>
-      _getString('lang', kIsWeb ? 'en' : Platform.localeName);
+  String get savedLangCode => _getString('lang', Platform.localeName);
 
   set savedLangCode(String s) => _setString('lang', s);
 
