@@ -51,7 +51,7 @@ abstract class Language {
   String get error;
   String plsUpdate(String oldVersion, String newVersion);
   String warnWrongDate(String date);
-  String dayToString(Day day);
+  String dayToString(Day? day);
   String dsbError(Object e);
   LinkedHashMap<String, String> get subjectLut;
   String dsbSubToSubtitleNotFree(String subTeacher, String notesaddon);

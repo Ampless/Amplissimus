@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:universal_io/io.dart';
 
-import 'package:url_launcher/link.dart';
+import 'package:url_launcher/link.dart' as ul;
 import 'package:dsbuntis/dsbuntis.dart';
 import 'package:flutter/material.dart';
 
@@ -67,7 +67,7 @@ Widget _renderPlans(List<Plan> plans, BuildContext context) {
             },
             padding: EdgeInsets.fromLTRB(4, 4, 2, 4),
           ),
-          Link(
+          ul.Link(
             uri: Uri.parse(plan.url),
             builder: (_, followLink) => IconButton(
               icon: ampIcon(Icons.open_in_new, Icons.open_in_new_outlined),
@@ -114,8 +114,8 @@ Future<List<Plan>> _getPlans(bool useJsonCache, {BuildContext? context}) async {
       prefs.password,
       http: http,
       endpoint: Platform.operatingSystem.toLowerCase().contains('web')
-          ? 'https://proxy.amplissimus.chrissx.de/'
-          : 'https://mobileapi.dsbcontrol.de',
+          ? 'http://amplissimus.chrissx.de:8042'
+          : Session.defaultEndpoint,
     );
     prefs.dsbJsonCache = Plan.plansToJsonString(plans);
     return plans;

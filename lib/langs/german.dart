@@ -120,19 +120,19 @@ class German extends Language {
   String get darkMode => 'Dark Mode';
 
   @override
-  String dayToString(Day day) {
+  String dayToString(Day? day) {
     switch (day) {
-      case Day.Null:
+      case null:
         return '';
-      case Day.Monday:
+      case Day.monday:
         return 'Montag';
-      case Day.Tuesday:
+      case Day.tuesday:
         return 'Dienstag';
-      case Day.Wednesday:
+      case Day.wednesday:
         return 'Mittwoch';
-      case Day.Thursday:
+      case Day.thursday:
         return 'Donnerstag';
-      case Day.Friday:
+      case Day.friday:
         return 'Freitag';
       default:
         throw UnimplementedError('Unbekannter Tag!');

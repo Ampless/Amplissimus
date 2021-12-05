@@ -120,19 +120,19 @@ class Dutch extends Language {
   String get darkMode => 'Donkere modus';
 
   @override
-  String dayToString(Day day) {
+  String dayToString(Day? day) {
     switch (day) {
-      case Day.Null:
+      case null:
         return '';
-      case Day.Monday:
+      case Day.monday:
         return 'Maandag';
-      case Day.Tuesday:
+      case Day.tuesday:
         return 'Dinsdag';
-      case Day.Wednesday:
+      case Day.wednesday:
         return 'Woensdag';
-      case Day.Thursday:
+      case Day.thursday:
         return 'Donderdag';
-      case Day.Friday:
+      case Day.friday:
         return 'Vrijdag';
       default:
         throw UnimplementedError('Onbekende dag!');

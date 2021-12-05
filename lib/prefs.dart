@@ -41,7 +41,8 @@ class Prefs {
   //NOTE: collisions would break everything.
   String _hashCache(String s) => sha256.convert(utf8.encode(s)).toString();
 
-  String? getCache(String url) {
+  String? getCache(Uri rawUrl) {
+    final url = rawUrl.toString();
     log.info(['prefs', 'getCache'], url);
     if (_prefs == null) return null;
     final hash = _hashCache(url);
@@ -59,16 +60,17 @@ class Prefs {
     return null;
   }
 
-  void setCache(String url, String html, Duration ttl) {
-    if (_prefs == null) return;
-    final hash = _hashCache(url);
-    final cachedHashes = _getStringList('CACHE_URLS', []);
-    if (!cachedHashes.contains(hash)) cachedHashes.add(hash);
-    _prefs!.setStringList('CACHE_URLS', cachedHashes);
-    _prefs!.setString('CACHE_VAL_$hash', html);
-    _prefs!.setInt(
-        'CACHE_TTL_$hash', DateTime.now().add(ttl).millisecondsSinceEpoch);
-  }
+  void Function(Uri, String, Duration?) setCache(Duration defaultTtl) =>
+      (url, html, ttl) {
+        if (_prefs == null) return;
+        final hash = _hashCache(url.toString());
+        final cachedHashes = _getStringList('CACHE_URLS', []);
+        if (!cachedHashes.contains(hash)) cachedHashes.add(hash);
+        _prefs!.setStringList('CACHE_URLS', cachedHashes);
+        _prefs!.setString('CACHE_VAL_$hash', html);
+        _prefs!.setInt('CACHE_TTL_$hash',
+            DateTime.now().add(ttl ?? defaultTtl).millisecondsSinceEpoch);
+      };
 
   void deleteCache(bool Function(String, String, int) isToBeDeleted) {
     if (_prefs == null) return;

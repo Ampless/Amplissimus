@@ -42,7 +42,8 @@ class _AppState extends State<_App> {
 late void Function() rebuildWholeApp;
 Prefs? _prefs;
 Prefs get prefs => _prefs!;
-final http = ScHttpClient(getCache: prefs.getCache, setCache: prefs.setCache);
+final http = ScHttpClient(
+    getCache: prefs.getCache, setCache: prefs.setCache(Duration(days: 4)));
 
 Future<void> mockPrefs() async {
   _prefs = Prefs(null);
@@ -60,11 +61,13 @@ void main() async {
   log.info('prefs', 'SharedPreferences (hopefully successfully) loaded.');
 
   adjustStatusBarForeground();
+  log.info('Startup', 'status bar thingy');
 
   try {
     try {
       final now = DateTime.now().millisecondsSinceEpoch;
       prefs.deleteCache((hash, val, ttl) => now > ttl);
+      log.info('CacheGC', 'done');
     } catch (e) {
       log.err('CacheGC', e);
     }
@@ -73,6 +76,7 @@ void main() async {
       final d = dsb.updateWidget(useJsonCache: true);
       await wpemailUpdate();
       await d;
+      log.info('Startup', 'Got DSB and WPEmail data.');
     }
 
     runApp(_App());
